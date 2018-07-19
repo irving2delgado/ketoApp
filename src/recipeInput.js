@@ -87,9 +87,28 @@ class RecipeInput extends Component {
                 >
                     +
                 </button>
-                
-
-        )
+                <div className='recipe-form-line'>
+                    <label htmlFor='recipe-img-input'> Image Url</label>
+                    <input
+                        id='recipe-img-input'
+                        type='text'
+                        placeholder=''
+                        name='img'
+                        value={img}
+                        size={36}
+                        autoComplete='off'
+                        onChange={this.handleChange} />
+                </div>
+                <button
+                type="submit"
+                className="buttons"
+                style={{alignSelf: 'flex-end', marginRight: 0}}
+                >
+                    SAVE
+                </button>
+            </form>
+        </div>
+     )
     }
 }
 

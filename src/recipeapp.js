@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import Recipe from './recipe.js';
 import './recipeapp.css';
 import NavBar from './navbar.js';
+import RecipeInput from './recipeInput.js';
 import RecipeList from './recipelist.js'
 
 class recipeApp extends Component {
@@ -43,6 +44,7 @@ class recipeApp extends Component {
 
       <div className="App">
       <NavBar />
+      <RecipeInput />
       <RecipeList recipes={this.state.recipes} />  
       </div>
     );
