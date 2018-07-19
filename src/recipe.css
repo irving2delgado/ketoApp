@@ -1,7 +1,6 @@
 .recipe-card {
 	display: flex;
 	flex-direction: column;
-	
 	width: 31%;
 	min-width: 240px;
 	margin: 1%;
