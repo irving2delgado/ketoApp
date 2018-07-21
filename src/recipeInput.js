@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import './recipeInput.css';
 
 class RecipeInput extends Component {
     static defaultProps = {
         onClose() {}
     }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -14,6 +16,7 @@ class RecipeInput extends Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleNewIngredient = this.handleNewIngredient;
     }
 
     handleChange(e) {
@@ -21,6 +24,7 @@ class RecipeInput extends Component {
     }
 
     render() {
+        console.log(this.props);
         const {title, instructions, img, ingredients} = this.state;
         const {onClose} = this.props;
         let inputs  = ingredients.map((ing, i) => (

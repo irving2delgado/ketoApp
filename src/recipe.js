@@ -11,6 +11,7 @@ class Recipe extends Component {
   }
 
 	render(){
+		console.log(this.props);
 		const {title, img, instructions} = this.props;
 		const ingredients = this.props.ingredients.map((ing, index) => (
 			<li key={index}>{ing}</li>

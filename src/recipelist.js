@@ -9,6 +9,7 @@ class RecipeList extends Component {
 		recipes: PropTypes.arrayOf(PropTypes.object).isRequired
 	}
 	render () {
+		console.log(this.props);
 		const recipes = this.props.recipes.map((r,index) => (
 			<Recipe key={r.id} {...r} />
 			));
