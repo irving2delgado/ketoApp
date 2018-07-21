@@ -29,11 +29,11 @@ class RecipeInput extends Component {
         this.setState({ingredients: [...ingredients, '']});
     }
 
-    handleChaneIng(e) {
+    handleChangeIng(e) {
         const index = Number(e.target.name.split('-')[1]);
         const ingredients = this.state.ingredients.map((ing, i) => (
             i === index ? e.target.value : ing
-        ));
+        ))
         this.setState({ingredients});
     }
 
@@ -54,7 +54,7 @@ class RecipeInput extends Component {
                     size={45}
                     autoComplete=" off"
                     placeholder= " Ingredient"
-                    onChange={this.handleChaneIng} />
+                    onChange={this.handleChangeIng} />
                 </label>
             </div>
         ));
