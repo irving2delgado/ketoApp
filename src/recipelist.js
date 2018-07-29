@@ -16,7 +16,9 @@ class RecipeList extends Component {
 
 		return (
 		<div className='recipe-list'>
+		
 		{recipes}
+		
 		</div>
 		)
 

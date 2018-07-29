@@ -10,6 +10,9 @@ class RecipeApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      error: null,
+      isLoaded: false,
+      results: {},
       recipes: [
       {
         id: 1,
@@ -40,6 +43,32 @@ class RecipeApp extends Component {
     this.handleSave = this.handleSave.bind(this);
     this.onDelete = this.onDelete.bind(this);
   }
+
+  componentDidMount() {
+    fetch("https://randomuser.me/api/?gender=male&nat=uss")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+           results: result.results
+          });
+         
+          console.log(this.state.results);
+          return <div>{this.state.results}</div>;
+        },
+        
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+  }
   
   handleSave(recipe) {
     this.setState((prevState, props) => {
@@ -68,7 +97,8 @@ class RecipeApp extends Component {
               onClose={() => this.setState({showForm: false})}  
             /> :
             null }
-        <RecipeList onDelete={this.onDelete} recipes={this.state.recipes} />
+        <RecipeList onDelete={this.onDelete} recipes={this.state.recipes} results={this.state.results} />
+        {/* <p>{this.state.results[0].name.first}</p> */}
       </div>
     );
   }
