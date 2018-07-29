@@ -6,7 +6,7 @@ import NavBar from './navbar.js';
 import RecipeInput from './recipeInput.js';
 import RecipeList from './recipelist.js'
 
-class recipeApp extends Component {
+class RecipeApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,22 +34,44 @@ class recipeApp extends Component {
       }
       ],
       nextRecipeId: 3,
+      showForm: false
     }
+    
+    this.handleSave = this.handleSave.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
+  
+  handleSave(recipe) {
+    this.setState((prevState, props) => {
+      const newRecipe = {...recipe, id: this.state.nextRecipeId};
+      return {
+        nextRecipeId: prevState.nextRecipeId + 1,
+        recipes: [...this.state.recipes, newRecipe],
+        showForm: false
+      }
+    });
+  }
+  
+  onDelete(id) {
+    const recipes = this.state.recipes.filter(r => r.id !== id);
+    this.setState({recipes});
+  }
+  
   render() {
-    console.log(this.props);
+    const {showForm} = this.state;
     return (
-      // <div>
-      // <NavBar />
-      // </div>
-
       <div className="App">
-      <NavBar />
-      <RecipeInput />
-      <RecipeList recipes={this.state.recipes} />  
+        <NavBar onNewRecipe={() => this.setState({showForm: true})} />
+        { showForm ?
+            <RecipeInput 
+              onSave={this.handleSave}
+              onClose={() => this.setState({showForm: false})}  
+            /> :
+            null }
+        <RecipeList onDelete={this.onDelete} recipes={this.state.recipes} />
       </div>
     );
   }
 }
 
-export default recipeApp;
+export default RecipeApp;
