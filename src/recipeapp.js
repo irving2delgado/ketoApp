@@ -46,7 +46,7 @@ class RecipeApp extends Component {
     this.onDelete = this.onDelete.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // fetch("https://randomuser.me/api/?gender=male&nat=uss&results=5000")
     //   .then(res => res.json())
     //   .then(
@@ -105,7 +105,7 @@ class RecipeApp extends Component {
       return (
         <li key={i}>{result.name.first }</li>
       )
-    });
+    }); 
     // const person = this.state.results[0].name.first;
     return (
       <div className="App">
@@ -116,10 +116,9 @@ class RecipeApp extends Component {
               onClose={() => this.setState({showForm: false})}  
             /> :
             null }
-        <RecipeList onDelete={this.onDelete} recipes={this.state.recipes} results={this.state.results} />
-        {/* <p>{this.state.results[0].name.first}</p> */}
+        <RecipeList onDelete={this.onDelete} recipes={this.state.recipes} results={this.state.results} person={this.person} />
         <ul>
-          { person }
+          {/* { person } */}
         </ul>
       </div>
     );
