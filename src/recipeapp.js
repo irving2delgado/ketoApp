@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import Recipe from './recipe.js';
+// import logo from './logo.svg';
+// import Recipe from './recipe.js';
 import './recipeapp.css';
 import NavBar from './navbar.js';
 import RecipeInput from './recipeInput.js';
-import RecipeList from './recipelist.js'
+import RecipeList from './recipelist.js';
+import axios from 'axios';
 
 class RecipeApp extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class RecipeApp extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      results: {},
+      results: [],
       recipes: [
       {
         id: 1,
@@ -40,23 +41,26 @@ class RecipeApp extends Component {
       showForm: false
     }
     
+    // this.returnDiv = this.returnDiv.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.onDelete = this.onDelete.bind(this);
   }
 
-  componentDidMount() {
-    fetch("https://randomuser.me/api/?gender=male&nat=uss")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-           results: result.results
-          });
+  componentWillMount() {
+    // fetch("https://randomuser.me/api/?gender=male&nat=uss&results=5000")
+    //   .then(res => res.json())
+    //   .then(
+    //     (result) => {
+    //       this.setState({
+    //         isLoaded: true,
+    //        results: result.results
+    //       });
+    this.getPerson();
+          // console.log(this.state);
          
-          console.log(this.state.results);
-          return <div>{this.state.results}</div>;
-        },
+          
+         
+        // }
         
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -67,7 +71,7 @@ class RecipeApp extends Component {
             error
           });
         }
-      )
+      // )
   }
   
   handleSave(recipe) {
@@ -85,9 +89,24 @@ class RecipeApp extends Component {
     const recipes = this.state.recipes.filter(r => r.id !== id);
     this.setState({recipes});
   }
+
+  getPerson(){
+    axios.get("https://randomuser.me/api/?gender=male&nat=uss&results=20")
+    .then(response => {
+      this.setState({results: response.data.results}, (state) => {
+        console.log(this.state)
+      })
+    })
+  };
   
   render() {
     const {showForm} = this.state;
+    const person = this.state.results.map((result, i) => {
+      return (
+        <li key={i}>{result.name.first }</li>
+      )
+    });
+    // const person = this.state.results[0].name.first;
     return (
       <div className="App">
         <NavBar onNewRecipe={() => this.setState({showForm: true})} />
@@ -99,6 +118,9 @@ class RecipeApp extends Component {
             null }
         <RecipeList onDelete={this.onDelete} recipes={this.state.recipes} results={this.state.results} />
         {/* <p>{this.state.results[0].name.first}</p> */}
+        <ul>
+          { person }
+        </ul>
       </div>
     );
   }
