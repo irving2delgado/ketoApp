@@ -9,18 +9,14 @@ class RecipeList extends Component {
 		recipes: PropTypes.arrayOf(PropTypes.object).isRequired
 	}
 	render () {
-		// console.log(this.props.results);
+		console.log(this.props.results);
 		const recipes = this.props.recipes.map((r,index) => (
 			<Recipe key={r.id} {...r} />
 			));
 
 		return (
 		<div className='recipe-list'>
-		<div>
-        <p>
-          {/* {this.state.results[0].name.first} */}
-        </p>
-      </div>
+		
 		{recipes}
 		
 		</div>
